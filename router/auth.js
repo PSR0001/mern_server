@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const authenticate = require('../middleware/authenticate')
 
 const User = require('../models/userSchema');
 const routerApp = express.Router();
@@ -8,36 +9,39 @@ const routerApp = express.Router();
 routerApp.get('/', (req, res) => {
     res.send('Welcome to my MERN server From Router.')
 });
-routerApp.post('/register', (req, res) => {
-    // res.send({message: req.body})
-    // console.log(req.body);
-    // wrritten in ES6 style
-    const { name, email, phone, work, password, cpassword } = req.body;
+routerApp.post('/register', async (req, res) => {
+    try {
+        // wrritten in ES6 style
+        const { name, email, phone, work, password, cpassword } = req.body;
 
-    // if user not fill the register form properly so 
-    if (!name || !email || !phone || !work || !password || !cpassword) {
-        return res.status(422).json({ error: "please fill the form properly!!" });
-    }
+        // if user not fill the register form properly so 
+        if (!name || !email || !phone || !work || !password || !cpassword) {
+            return res.json({ status: 422, massage: "please fill the form properly!!" });
+        }
+        if (req.body.password === req.body.cpassword) {
+            const userExist = await User.findOne({ email: email })
 
-    User.findOne({ email: email })
-        .then((userExist) => {
             if (userExist) {
-                return res.status(422).json({ error: "Email id already Exist" })
+                return res.json({ status: 422, message: "Email id already Exist" })
             }
             const user = new User({ name, email, phone, work, password, cpassword });
-            // hashing process here ---------------------------------------------------------------
-
+            // hashing process here -------------------------------------------------
 
             user.save().then(() => {
 
-
-                res.status(201).json({ message: "User Register Successfully" });
+                res.status(201).json({ status: 201, message: "User Register Successfully" });
             })
                 .catch((err) => {
-                    res.status(500).json({ error: "failed to register" })
+                    res.status(500).json({ status: 500, message: "failed to register" })
                 })
-        })
-        .catch(err => { console.log(err) });
+
+        }
+        else{
+            res.json({status:422, message:'Your both passwaord are not same'})
+        }
+
+    }
+    catch (err) { console.log(err) }
 });
 
 
@@ -49,38 +53,46 @@ routerApp.post('/login', async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({ error: "plz fill the form" })
+            return res.json({ status: 400, message: "plz fill the form" })
         }
+
         const userLogin = await User.findOne({ email: email });
-        // console.log(userLogin);
 
         // for using password and email use safely
         if (userLogin) {
             // checking userlogin password using bcrypt.compare method==
             const isMatch = await bcrypt.compare(password, userLogin.password);
-            console.log('userlogin here');
+
             // genarate auto token using 
-            token = await userLogin.generateAuthToken();
-            console.log(token);
 
-            // add cookie-->
-            res.cookie("jwtTokens", token, {
-                expires: new Date(Date.now() + 25892000000)
-            })
-
-            if (!isMatch) {
-                res.status(400).json({ message: "User error" })
+            if (isMatch) {
+                res.json({ message: "User Login successfully." })
+                token = await userLogin.generateAuthToken();
+                console.log(token);
+                // add cookie-->
+                res.cookie("jwtTokens", token, {
+                    expires: new Date(Date.now() + 25892000000)
+                })
             }
             else {
-                res.json({ message: "User Login successfully." })
+                res.json({ status: 400, message: "Fill the Form Correctly" })
             }
-        } else {
-            res.status(400).json({ message: "User error" })
+        }
+        else {
+            res.json({ status: 400, message: "Fill the Form Correctly" })
         }
 
     } catch (err) {
-        console.log(err);
+        console.log('This is /login error ! : ' + err);
     }
 })
+
+// about Us page here
+routerApp.get('/about', authenticate, (req, res) => {
+    console.log('hi i am in about folder')
+    res.send(req.rootUser)
+})
+
+
 
 module.exports = routerApp;
