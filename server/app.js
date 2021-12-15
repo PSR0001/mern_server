@@ -6,7 +6,7 @@ const app = express();
 dotEnv.config({path:'../.env'})
 
 // i had to receive data in json format so for that use a middleware
-app.use(express.json());
+app.use(express.json())
 
 // import router part from router folder
 app.use(require('../router/auth'));

@@ -1,7 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const authenticate = require('../middleware/authenticate')
+const Authenticate = require('../middleware/authenticate')
+
 
 const User = require('../models/userSchema');
 const routerApp = express.Router();
@@ -66,13 +67,14 @@ routerApp.post('/login', async (req, res) => {
             // genarate auto token using 
 
             if (isMatch) {
-                res.json({ message: "User Login successfully." })
-                token = await userLogin.generateAuthToken();
-                console.log(token);
                 // add cookie-->
-                res.cookie("jwtTokens", token, {
+                token = await userLogin.generateAuthToken();
+                res.cookie("jwtoken", token, {
                     expires: new Date(Date.now() + 25892000000)
                 })
+
+                res.json({ message: "User Login successfully." })
+                // console.log(token);
             }
             else {
                 res.json({ status: 400, message: "Fill the Form Correctly" })
@@ -88,11 +90,8 @@ routerApp.post('/login', async (req, res) => {
 })
 
 // about Us page here
-routerApp.get('/about', authenticate, (req, res) => {
-    console.log('hi i am in about folder')
+routerApp.post('/about', Authenticate, (req, res) => {
     res.send(req.rootUser)
 })
-
-
 
 module.exports = routerApp;
