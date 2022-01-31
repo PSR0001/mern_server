@@ -10,14 +10,13 @@ dotEnv.config({ path: '../.env' })
 const Authenticate = async (req, res, next) => {
     // console.log(req.json)
     try {
-
-
-        // const token = await req.headers.cookie.jwtokwn;
+       
         const tokennn = await req.headers.cookie;
-        if (tokennn.length > 80) {
-        const tokenn = tokennn.split(" ")[1]
-        const token = tokenn.split("=")[1]
 
+        if (tokennn.length > 80) {
+
+        const token = tokennn.split("=")[1]
+        // console.log(token);
         const verifyToken = jwt.verify(token, process.env.SECRT_KEY)
 
         const rootUser = await User.findOne({ _id: verifyToken._id, "tokens.token": token })
@@ -35,7 +34,7 @@ const Authenticate = async (req, res, next) => {
 
     } catch (err) {
         res.send({status:401, message: 'Unauturised : No token provided!' })
-        console.log('this is error' + err)
+        // console.log('this is error123#' + err)
     }
 
     next();
