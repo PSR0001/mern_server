@@ -7,9 +7,9 @@ const Authenticate = require('../middleware/authenticate')
 const User = require('../models/userSchema');
 const routerApp = express.Router();
 
-routerApp.get('/', (req, res) => {
-    res.send('Welcome to my MERN server From Router.')
-});
+// routerApp.get('/', (req, res) => {
+//     res.send('Welcome to my MERN server From Router.')
+// });
 routerApp.post('/register', async (req, res) => {
     try {
         // wrritten in ES6 style
