@@ -1,25 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.ea1455b2.chunk.css",
-    "main.js": "/static/js/main.d9b630d9.chunk.js",
-    "main.js.map": "/static/js/main.d9b630d9.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.f5231ebd.js",
-    "runtime-main.js.map": "/static/js/runtime-main.f5231ebd.js.map",
-    "static/css/2.d5e620ed.chunk.css": "/static/css/2.d5e620ed.chunk.css",
-    "static/js/2.bf7c562a.chunk.js": "/static/js/2.bf7c562a.chunk.js",
-    "static/js/2.bf7c562a.chunk.js.map": "/static/js/2.bf7c562a.chunk.js.map",
-    "static/js/3.f297e1e3.chunk.js": "/static/js/3.f297e1e3.chunk.js",
-    "static/js/3.f297e1e3.chunk.js.map": "/static/js/3.f297e1e3.chunk.js.map",
+    "main.css": "/static/css/main.0fb0fc3c.css",
+    "main.js": "/static/js/main.dbacb95e.js",
+    "static/js/787.44e022fc.chunk.js": "/static/js/787.44e022fc.chunk.js",
+    "static/media/video.mp4": "/static/media/video.83a10248186af80c95aa.mp4",
+    "static/media/partha.jpg": "/static/media/partha.5235ea433eef32a4e4d4.jpg",
+    "static/media/171.jpg": "/static/media/171.7a08388319a431bcd35d.jpg",
+    "static/media/Mern-stack.png": "/static/media/Mern-stack.8722a340d215703d4d3e.png",
     "index.html": "/index.html",
-    "static/css/2.d5e620ed.chunk.css.map": "/static/css/2.d5e620ed.chunk.css.map",
-    "static/css/main.ea1455b2.chunk.css.map": "/static/css/main.ea1455b2.chunk.css.map",
-    "static/js/2.bf7c562a.chunk.js.LICENSE.txt": "/static/js/2.bf7c562a.chunk.js.LICENSE.txt"
+    "main.0fb0fc3c.css.map": "/static/css/main.0fb0fc3c.css.map",
+    "main.dbacb95e.js.map": "/static/js/main.dbacb95e.js.map",
+    "787.44e022fc.chunk.js.map": "/static/js/787.44e022fc.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.f5231ebd.js",
-    "static/css/2.d5e620ed.chunk.css",
-    "static/js/2.bf7c562a.chunk.js",
-    "static/css/main.ea1455b2.chunk.css",
-    "static/js/main.d9b630d9.chunk.js"
+    "static/css/main.0fb0fc3c.css",
+    "static/js/main.dbacb95e.js"
   ]
 }
