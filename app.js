@@ -1,11 +1,12 @@
 const express = require('express');
+require('dotenv').config();
 const dotEnv = require('dotenv');
 const mongoose = require('./DB/mongoS');
 const path = require('path');
 const app = express();
 // securing port number using .env
 const PORT=process.env.PORT || 3000;
-dotEnv.config({path:'../.env'})
+dotEnv.config({path:'./config.env'})
 
 // i had to receive data in json format so for that use a middleware
 app.use(express.json())
@@ -23,3 +24,5 @@ app.get('/', function (req, res) {
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
 })
+
+
