@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const dotEnv = require('dotenv');
-const mongoose = require('./DB/mongoS');
+const connectToMongo = require('./DB/mongoS');
 const path = require('path');
 const app = express();
 // securing port number using .env
@@ -10,7 +10,7 @@ dotEnv.config({path:'./config.env'})
 
 // i had to receive data in json format so for that use a middleware
 app.use(express.json())
-
+connectToMongo()
 // import router part from router folder
 app.use(require('./router/auth'));
 
